@@ -28,4 +28,22 @@ for port in range(1, 1024):
     else:
         print("Port {} is closed!".format(port))
 ```
-        
+  
+  
+# Initialize the ports
+* Libraries
+  First we need to initialize some libraries into the code
+```
+import socket
+```
+
+
+
+
+
+
+
+
+
+
+
