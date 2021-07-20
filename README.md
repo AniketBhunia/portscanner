@@ -32,7 +32,7 @@ for port in range(1, 1024):
   
 # Initialize the ports
   * Libraries:
-   <p>First we need to initialize some libraries into the code</p>
+   <p> First we need to initialize some libraries into the code </p>
 ```
 import socket
 ```
