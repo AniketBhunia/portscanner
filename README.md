@@ -89,6 +89,18 @@ def get_ports(mode):
 
 In this function we have defined four possible modes. The first mode scans the 1023 standardized ports. With the second mode we add the 48,128 reserved ports. By using the third mode we focus on some of the most important ports only. And finally, the fourth mode gives us the possibility to choose our ports manually. After that we add all our ports to the queue.
 
+# Multithreading
+The next thing we need to do is defining a so-called worker function for our threads. This function will be responsible for getting the port numbers from the queue, scanning them and printing the results.
+
+```
+def worker():
+    while not queue.empty():
+        port = queue.get()
+        if portscan(port):
+            print("Port {} is open!".format(port))
+            open_ports.append(port)
+```
+
 
 
 
