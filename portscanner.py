@@ -2,7 +2,7 @@ import socket
 import threading
 from queue import Queue
 
-target="127.0.0.1"
+target="Your Ip Address"
 queue = Queue()
 open_ports = []
 
