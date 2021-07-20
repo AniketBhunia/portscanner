@@ -101,7 +101,42 @@ def worker():
             open_ports.append(port)
 ```
 
+So, now that we have implemented the functionality, we are going to write our main function, which creates, starts and manages our threads.
 
+```
+def run_scanner(threads, mode):
+
+    get_ports(mode)
+
+    thread_list = []
+
+    for t in range(threads):
+        thread = threading.Thread(target=worker)
+        thread_list.append(thread)
+
+    for thread in thread_list:
+        thread.start()
+
+    for thread in thread_list:
+        thread.join()
+
+    print("Open ports are:", open_ports)
+```
+
+In this function, we have two parameters. The first one is for the amount of threads we want to start and the second one is our mode. We load our ports, depending on the mode we have chosen and we create a new empty list for our threads. Then, we create the desired amount of threads, assign them our worker function and add them to the list.
+
+```
+run_scanner(100, 1)
+```
+
+Run it and provide your ip address that you want to scan and the output will be like this->
+```
+Port 135 is open!
+Port 445 is open!
+Port 902 is open!
+Port 912 is open!
+Open ports are: [135, 445, 902, 912]
+```
 
 
 
