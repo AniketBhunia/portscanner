@@ -41,9 +41,9 @@ As a single thred pogram the time it will take will be slow so we are going to m
 import threading
 from queue import Queue
 ```
-*Socket will be used for our connection attempts to the host at a specific port.
-*Threading will allow us to run multiple scanning functions simultaneously.
-*Queue is a data structure that will help us to manage the access of multiple threads on a single resource, which in our case will be the port numbers. 
+* Socket will be used for our connection attempts to the host at a specific port.
+* Threading will allow us to run multiple scanning functions simultaneously.
+* Queue is a data structure that will help us to manage the access of multiple threads on a single resource, which in our case will be the port numbers. 
 
 Then we are going to call three global variable that we will need throught the functions.
 
@@ -52,9 +52,42 @@ target = "Your IP address"
 queue = Queue()
 open_ports = []
 ```
-*Target is obviously the IP-Address or domain of the host we are trying to scan.
-*The queue is now empty and will later be filled with the ports we want to scan.
-*And last but not least we have an empty list, which will store the open port numbers at the end.
+* Target is obviously the IP-Address or domain of the host we are trying to scan.
+* The queue is now empty and will later be filled with the ports we want to scan.
+* And last but not least we have an empty list, which will store the open port numbers at the end.
+
+Now implementing the portscanfunction
+```
+def portscan(port):
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.connect((target, port))
+        return True
+    except:
+        return False
+```
+Before we going into the threading, we are going to define the ports we want to scan. For this, we will define another function called get_ports.
+```
+def get_ports(mode):
+    if mode == 1:
+        for port in range(1, 1024):
+            queue.put(port)
+    elif mode == 2:
+        for port in range(1, 49152):
+            queue.put(port)
+    elif mode == 3:
+        ports = [20, 21, 22, 23, 25, 53, 80, 110, 443]
+        for port in ports:
+            queue.put(port)
+    elif mode == 4:
+        ports = input("Enter your ports (seperate by blank):")
+        ports = ports.split()
+        ports = list(map(int, ports))
+        for port in ports:
+            queue.put(port)
+```
+
+In this function we have defined four possible modes. The first mode scans the 1023 standardized ports. With the second mode we add the 48,128 reserved ports. By using the third mode we focus on some of the most important ports only. And finally, the fourth mode gives us the possibility to choose our ports manually. After that we add all our ports to the queue.
 
 
 
