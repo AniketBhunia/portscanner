@@ -16,3 +16,16 @@ def portscan(port):
     except:
         return False
 ```
+We have created a ordinary socket that tries to connect to the ip-address and if it connects then give result true or other else give false.
+
+we can also automate that by making a for-loop that scans all the standardized ports.
+
+```
+for port in range(1, 1024):
+    result = portscan(port)
+    if(result):
+        print("Port {} is open!".format(port))
+    else:
+        print("Port {} is closed!".format(port))
+```
+        
